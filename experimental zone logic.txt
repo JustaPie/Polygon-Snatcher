@@ -1,0 +1,53 @@
+//created in a txt file, I take full responsibility for all awfulness.
+//this will be updated as appropriate map api calls/firebase calls become known
+//-kris
+
+public class main_zone_logic extends Activity {
+    private Handler mHandler = new Handler();
+
+	private boolean is_team_majority(){
+		Boolean majority;
+		//queries database to figure out if your team is in the majority at the zone
+		return majority;
+	}
+
+	private void on_zone _enter(){		//maybe needs to be some sort of broadcast receiver?
+		//increment players on team X by 1
+		in_the_zone();
+		
+	}
+
+	private void on_zone_exit(){		//maybe needs to be some sort of broadcast receiver?
+		//decrement players on team X by 1
+	}
+
+	private void in_the_zone(){
+		while(in zone){
+			while(is_team_majority() == true){
+				if(team_score != 100){ //every team has 0-100 points, first to 100 gets the zone
+					mHandler.postDelayed(new Runnable(){	//found this online to implement 60 second delay. not sure if it works yet
+						public void run(){
+							//add +20 to your score in database
+							if(any other team's score > 0)
+								//subtract 20 from those teams
+			
+						},60000);
+					}
+				}
+				else{	//(upon reaching 100)
+					//change color of territory to your team,
+					// update personal stats,
+					//notification?
+				}
+			}
+		}
+	}
+}
+/*
+
+
+Database will have a table per zone. or maybe table per team instead? whatever makes more sense
+For each zone: # of people in team X, Y, Z etc...currently in the zone, # of points 0-100 for each team. 
+
+
+*/
