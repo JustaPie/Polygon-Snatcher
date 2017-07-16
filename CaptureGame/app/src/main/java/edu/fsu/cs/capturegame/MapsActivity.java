@@ -18,6 +18,11 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.widget.Toast;
+import android.Manifest;
+import android.content.DialogInterface;
+import android.content.pm.PackageManager;
+import android.os.Build;
+import android.support.v4.app.ActivityCompat;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
