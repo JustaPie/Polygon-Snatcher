@@ -7,6 +7,9 @@ import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.location.Location;
+import android.location.LocationManager;
+import android.support.v4.app.LoaderManager;
 import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
 import android.util.Log;
@@ -14,6 +17,11 @@ import android.util.Log;
 import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.GeofenceStatusCodes;
 import com.google.android.gms.location.GeofencingEvent;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Polygon;
+import com.google.android.gms.maps.model.PolygonOptions;
+import com.google.maps.android.PolyUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,9 +29,38 @@ import java.util.List;
 
 public class GeofenceTransitionsIntentService extends IntentService {
     protected static final String TAG = "GeofenceTransitionsIS";
+    List<LatLng> redZone;
+    List<LatLng> blueZone;
+    List<LatLng> yellowZone;
+    List<LatLng> greenZone;
 
     public GeofenceTransitionsIntentService() {
         super(TAG);  // use TAG to name the IntentService worker thread
+
+        redZone = new ArrayList<LatLng>();
+        blueZone = new ArrayList<LatLng>();
+        yellowZone = new ArrayList<LatLng>();
+        greenZone = new ArrayList<LatLng>();
+
+        redZone.add(new LatLng(30.440534, -84.297978));
+        redZone.add(new LatLng(30.435576,-84.297978));
+        redZone.add(new LatLng(30.435576, -84.289663));
+        redZone.add(new LatLng(30.440534, -84.288204));
+
+        blueZone.add(new LatLng(30.440534, -84.297978));
+        blueZone.add(new LatLng(30.444863,-84.297978));
+        blueZone.add(new LatLng(30.444863, -84.28829));
+        blueZone.add(new LatLng(30.440534, -84.28829));
+
+        yellowZone.add(new LatLng(30.440534, -84.297978));
+        yellowZone.add(new LatLng(30.444863,-84.297978));
+        yellowZone.add(new LatLng(30.448711, -84.305799));
+        yellowZone.add(new LatLng(30.440534, -84.305799));
+
+        greenZone.add(new LatLng(30.440534, -84.297978));
+        greenZone.add(new LatLng(30.435576,-84.297978));
+        greenZone.add(new LatLng(30.435576, -84.305799));
+        greenZone.add(new LatLng(30.440534, -84.305799));
     }
 
     /*Reference http://io2015codelabs.appspot.com/codelabs/geofences#5 */
@@ -36,7 +73,27 @@ public class GeofenceTransitionsIntentService extends IntentService {
         }
 
         String description = getGeofenceTransitionDetails(event);
-        sendNotification(description);
+        LatLng red = new LatLng(30.438055,-84.2934558);
+
+        //REMOVE 'RED' AND ADD CURRENT USER LOCATION
+
+        if(PolyUtil.containsLocation(red, redZone, false))
+        {
+            sendNotification("Red");
+        }
+        if(PolyUtil.containsLocation(red, blueZone, false))
+        {
+            sendNotification("Blue");
+        }
+        if(PolyUtil.containsLocation(red, yellowZone, false))
+        {
+            sendNotification("Yellow");
+        }
+        if(PolyUtil.containsLocation(red, greenZone, false))
+        {
+           sendNotification("Green");
+        }
+
     }
 
     private static String getGeofenceTransitionDetails(GeofencingEvent event) {
@@ -61,10 +118,9 @@ public class GeofenceTransitionsIntentService extends IntentService {
 
         // Get a notification builder that's compatible with platform versions >= 4
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
-        notificationDetails = notificationDetails.substring(23);
         // Define the notification settings.
         builder.setColor(Color.RED)
-                .setContentTitle("Welcome to Polygon Snatcher")
+                .setContentTitle("You are in the " + notificationDetails + " zone!")
                 .setContentText("Capture the flag!")
                 .setContentIntent(notificationPendingIntent)
                 .setSmallIcon(R.mipmap.notification_icon)

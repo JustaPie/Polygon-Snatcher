@@ -3,10 +3,12 @@ package edu.fsu.cs.capturegame;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
 import android.support.v4.app.ActivityCompat;
@@ -15,10 +17,13 @@ import android.os.Bundle;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.location.GeofencingRequest;
+import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.Circle;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -55,10 +60,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         ResultCallback<Status> {
 
     private GoogleMap mMap;
+    LocationManager locationManager;
+    LocationListener locationListener;
+    LatLng currentlocation;
     protected ArrayList<Geofence> mGeofenceList;
     protected GoogleApiClient mGoogleApiClient;
     private Button mAddGeofencesButton;
-    private LocationManager manager;
     public static final int REQUEST_LOCATION = 99;
 
     @Override
@@ -127,6 +134,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .strokeColor(Color.GREEN)
                 .fillColor(0x7F00FF00)
                 .strokeWidth(4));
+
+        //PolyUtil.containsLocation()
     }
 
     public void checkLocationPermission() {
@@ -256,6 +265,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             Geofence.GEOFENCE_TRANSITION_EXIT)
                     .build());
         }
+
     }
 
     private GeofencingRequest getGeofencingRequest() {
@@ -283,6 +293,28 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     "Geofences Added",
                     Toast.LENGTH_SHORT
             ).show();
+
+            Circle mCircle = mMap.addCircle(new CircleOptions()
+                .center(new LatLng(30.438055,-84.2934558))
+                .radius(700)
+                .strokeColor(android.R.color.transparent)
+                .fillColor(Color.BLACK));
+            Circle mCircle2 = mMap.addCircle(new CircleOptions()
+                    .center(new LatLng(30.4426985,-84.293134))
+                    .radius(700)
+                    .strokeColor(android.R.color.transparent)
+                    .fillColor(Color.BLACK));
+            Circle mCircle3 = mMap.addCircle(new CircleOptions()
+                    .center(new LatLng(30.4436605,-84.3018885))
+                    .radius(700)
+                    .strokeColor(android.R.color.transparent)
+                    .fillColor(Color.BLACK));
+            Circle mCircle4 = mMap.addCircle(new CircleOptions()
+                    .center(new LatLng(30.438055,-84.3018885))
+                    .radius(700)
+                    .strokeColor(android.R.color.transparent)
+                    .fillColor(Color.BLACK));
+
         } else {
             // Get the status code for the error and log it using a user-friendly message.
             Toast.makeText(this, "Geofences not added", Toast.LENGTH_SHORT).show();
