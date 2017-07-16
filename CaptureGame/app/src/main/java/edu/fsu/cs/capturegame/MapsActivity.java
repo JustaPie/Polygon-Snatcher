@@ -15,9 +15,14 @@ import com.google.android.gms.maps.model.PolygonOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
+import android.widget.Toast;
+
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    public static final int REQUEST_LOCATION = 99;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +53,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(FloridaState, 15));
         mMap.getUiSettings().setAllGesturesEnabled(false);
 
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            //User has previously accepted this permission
+            if (ActivityCompat.checkSelfPermission(this,
+                    Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                mMap.setMyLocationEnabled(true);
+            }
+        }
+        //Checking to see if permission was granted and on
+        //Some code taken from developer.android.com
+        checkLocationPermission();
 
         Polygon t1Poly = mMap.addPolygon(new PolygonOptions().add(
                 new LatLng(30.440534, -84.297978), new LatLng(30.435576,-84.297978), new LatLng(30.435576, -84.289663), new LatLng(30.440534, -84.288204))
@@ -69,5 +84,75 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .strokeColor(Color.GREEN)
                 .fillColor(0x7F00FF00)
                 .strokeWidth(4));
+    }
+    
+        // Function checks to see if user gave permission to obtain location
+    public void checkLocationPermission() {
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // In case permission is denied or unavailable, display to user why it's needed
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)) {
+                    showMessage("Location permission needed to use these services!",
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+                                    {
+                                        requestPermissions(new String[]{Manifest.permission.WRITE_CONTACTS},
+                                                REQUEST_LOCATION);
+                                    }
+                                }
+                            });
+                    return;
+                }
+
+                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        REQUEST_LOCATION);
+                return;
+
+            }
+            else
+            {
+                mMap.setMyLocationEnabled(true);
+            }
+        }
+    }
+    
+        // Dialog to display if user disables location
+    private void showMessage(String message, DialogInterface.OnClickListener okListener){
+        new AlertDialog.Builder(MapsActivity.this)
+                .setMessage(message)
+                .setPositiveButton("OK", okListener)
+                .setNegativeButton("Cancel", null)
+                .create()
+                .show();
+    }
+
+    // Checking for result of permission given by user
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_LOCATION: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // Permission granted
+                    if (ActivityCompat.checkSelfPermission(this,
+                            Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                        mMap.setMyLocationEnabled(true);
+                    }
+                } else {
+                    // Permission denied, TT_TT!
+                    Toast.makeText(this, "Permission denied", Toast.LENGTH_LONG).show();
+                }
+                return;
+            }
+
+        }
     }
 }
