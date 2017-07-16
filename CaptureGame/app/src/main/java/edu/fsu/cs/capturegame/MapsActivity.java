@@ -1,5 +1,6 @@
 package edu.fsu.cs.capturegame;
 
+import android.graphics.Color;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
@@ -9,6 +10,10 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polygon;
+import com.google.android.gms.maps.model.PolygonOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -39,8 +44,30 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng FloridaState = new LatLng(30.4419, -84.2985);
-        mMap.addMarker(new MarkerOptions().position(FloridaState).title("Marker at Florida State University"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(FloridaState, 17));
+        LatLng FloridaState = new LatLng(30.4419, -84.2971);
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(FloridaState, 15));
+        mMap.getUiSettings().setAllGesturesEnabled(false);
+
+
+        Polygon t1Poly = mMap.addPolygon(new PolygonOptions().add(
+                new LatLng(30.440534, -84.297978), new LatLng(30.435576,-84.297978), new LatLng(30.435576, -84.289663), new LatLng(30.440534, -84.288204))
+                .strokeColor(Color.RED)
+                .fillColor(0x7FFF0000)
+                .strokeWidth(4));
+        Polygon t2Poly = mMap.addPolygon(new PolygonOptions().add(
+                new LatLng(30.440534, -84.297978), new LatLng(30.444863,-84.297978), new LatLng(30.444863, -84.28829), new LatLng(30.440534, -84.28829))
+                .strokeColor(Color.BLUE)
+                .fillColor(0x7F0000FF)
+                .strokeWidth(4));
+        Polygon t3Poly = mMap.addPolygon(new PolygonOptions().add(
+                new LatLng(30.440534, -84.297978), new LatLng(30.444863,-84.297978), new LatLng(30.448711, -84.305799), new LatLng(30.440534, -84.305799))
+                .strokeColor(Color.YELLOW)
+                .fillColor(0x7FFFFF00)
+                .strokeWidth(4));
+        Polygon t4Poly = mMap.addPolygon(new PolygonOptions().add(
+                new LatLng(30.440534, -84.297978), new LatLng(30.435576,-84.297978), new LatLng(30.435576, -84.305799), new LatLng(30.440534, -84.305799))
+                .strokeColor(Color.GREEN)
+                .fillColor(0x7F00FF00)
+                .strokeWidth(4));
     }
 }
