@@ -69,5 +69,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .strokeColor(Color.GREEN)
                 .fillColor(0x7F00FF00)
                 .strokeWidth(4));
+
+
+            boolean contain = PolyUtil.containsLocation()
+
     }
 }
