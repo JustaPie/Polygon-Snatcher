@@ -1,0 +1,99 @@
+{
+  "project_info": {
+    "project_number": "995375988672",
+    "firebase_url": "https://polycap-authentication.firebaseio.com",
+    "project_id": "polycap-authentication",
+    "storage_bucket": "polycap-authentication.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:995375988672:android:a15f8b2391e74cea",
+        "android_client_info": {
+          "package_name": "edu.fsu.cs.mobile.firebasetest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "995375988672-jrimavrbsk1ga5i40ilqb8a21pil3gbm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.fsu.cs.mobile.firebasetest",
+            "certificate_hash": "554c4727a03eb2b65c72dac643001fb6d4630c10"
+          }
+        },
+        {
+          "client_id": "995375988672-nm7v67sqg0jdnnmn240ngsdkiol6b069.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB1Vloh9ofcSUXHhQSXm9kAkfZUmU7C-lg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "995375988672-nm7v67sqg0jdnnmn240ngsdkiol6b069.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:995375988672:android:950945db8a058752",
+        "android_client_info": {
+          "package_name": "edu.fsu.cs.mobile.firebaseautoconnecttest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "995375988672-sre5ppn55omcqjtu7sqmbr60ofeetru7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.fsu.cs.mobile.firebaseautoconnecttest",
+            "certificate_hash": "554c4727a03eb2b65c72dac643001fb6d4630c10"
+          }
+        },
+        {
+          "client_id": "995375988672-nm7v67sqg0jdnnmn240ngsdkiol6b069.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB1Vloh9ofcSUXHhQSXm9kAkfZUmU7C-lg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "995375988672-nm7v67sqg0jdnnmn240ngsdkiol6b069.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

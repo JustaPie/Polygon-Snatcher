@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">PolyCap</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="email_hint">Email Address</string>
+    <string name="password_hint">Password</string>
+    <string name="login_string">Login</string>
+    <string name="register_string">Register</string>
+
+    <array name="zone_keys">
+        <item>Zone1</item>
+        <item>Zone2</item>
+        <item>Zone3</item>
+        <item>Zone4</item>
+        <item>Zone5</item>
+        <item>Zone6</item>
+    </array>
+    <string name="title_activity_game">Game</string>
+</resources>
